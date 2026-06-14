@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FootDesign Hub — Mercado Digital de Arte Futbolístico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0e0e0e;
+      --bg-secondary: #161616;
+      --bg-card: #1a1a1a;
+      --bg-card-hover: #212121;
+      --bg-modal: #181818;
+      --accent: #b5ff3c;
+      --accent-dim: #8fcc2a;
+      --accent-glow: rgba(181,255,60,0.15);
+      --accent-text: #0a0a0a;
+      --text-primary: #f0f0f0;
+      --text-secondary: #a0a0a0;
+      --text-muted: #5a5a5a;
+      --border: rgba(255,255,255,0.07);
+      --border-hover: rgba(181,255,60,0.35);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.5);
+      --shadow-modal: 0 24px 80px rgba(0,0,0,0.8);
+      --transition: 0.22s cubic-bezier(0.4,0,0.2,1);
+      --font: 'Poppins', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(14,14,14,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+    }
+
+    .header-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      height: 68px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--accent-text);
+    }
+
+    .logo-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .logo-text span { color: var(--accent); }
+
+    .search-wrap {
+      flex: 1;
+      max-width: 440px;
+      position: relative;
+    }
+
+    .search-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      width: 17px;
+      height: 17px;
+    }
+
+    #search-input {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.55rem 1rem 0.55rem 2.6rem;
+      font-family: var(--font);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color var(--transition), background var(--transition);
+    }
+
+    #search-input::placeholder { color: var(--text-muted); }
+
+    #search-input:focus {
+      border-color: var(--border-hover);
+      background: var(--bg-card);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-left: auto;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 999px;
+      padding: 0.55rem 1.25rem;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--accent-text);
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-dim);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(181,255,60,0.3);
+    }
+
+    .btn-accent:active { transform: translateY(0); }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--border-hover);
+      color: var(--accent);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 4.5rem 1.5rem 3.5rem;
+      text-align: center;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(181,255,60,0.06) 0%, transparent 70%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b5ff3c' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(181,255,60,0.1);
+      border: 1px solid rgba(181,255,60,0.25);
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+      max-width: 780px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 2rem;
+      font-weight: 400;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    /* ── GALLERY SECTION ── */
+    .gallery-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 20px;
+      background: var(--accent);
+      border-radius: 99px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-family: var(--font);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .filter-tab:hover, .filter-tab.active {
+      background: var(--accent-glow);
+      border-color: var(--border-hover);
+      color: var(--accent);
+    }
+
+    /* ── GRID ── */
+    #designs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 5rem 2rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state svg {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 1rem;
+      opacity: 0.3;
+      display: block;
+    }
+
+    .empty-state p { font-size: 0.95rem; }
+
+    /* ── DESIGN CARD ── */
+    .design-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all var(--transition);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .design-card:hover {
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card), 0 0 0 1px rgba(181,255,60,0.1);
+    }
+
+    .card-image-wrap {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      display: block;
+    }
+
+    .design-card:hover .card-image-wrap img {
+      transform: scale(1.06);
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity var(--transition);
+      display: flex;
+      align-items: flex-end;
+      padding: 1rem;
+    }
+
+    .design-card:hover .card-overlay { opacity: 1; }
+
+    .overlay-preview-btn {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      font-family: var(--font);
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .overlay-preview-btn:hover { background: rgba(255,255,255,0.25); }
+
+    .card-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-free {
+      background: rgba(181,255,60,0.15);
+      color: var(--accent);
+      border: 1px solid rgba(181,255,60,0.3);
+    }
+
+    .badge-paid {
+      background: rgba(255,185,0,0.15);
+      color: #ffb900;
+      border: 1px solid rgba(255,185,0,0.3);
+    }
+
+    .card-body {
+      padding: 1rem 1.1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+
+    .card-designer {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .designer-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, #3dffd0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: #000;
+      flex-shrink: 0;
+    }
+
+    .card-tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.1rem;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.1rem 1rem;
+      border-top: 1px solid var(--border);
+      gap: 0.75rem;
+    }
+
+    .price-tag {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .price-free { color: var(--accent); }
+    .price-paid { color: #ffb900; }
+
+    .btn-action {
+      flex: 1;
+      background: var(--accent);
+      color: var(--accent-text);
+      border: none;
+      font-family: var(--font);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-align: center;
+    }
+
+    .btn-action:hover {
+      background: var(--accent-dim);
+      transform: scale(1.02);
+    }
+
+    .btn-action-pay {
+      background: rgba(255,185,0,0.12);
+      color: #ffb900;
+      border: 1px solid rgba(255,185,0,0.3);
+    }
+
+    .btn-action-pay:hover {
+      background: rgba(255,185,0,0.22);
+      transform: scale(1.02);
+    }
+
+    .btn-like {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      flex-shrink: 0;
+      font-size: 15px;
+    }
+
+    .btn-like:hover {
+      border-color: #ff4e6a;
+      color: #ff4e6a;
+      background: rgba(255,78,106,0.1);
+    }
+
+    .btn-like.liked {
+      background: rgba(255,78,106,0.12);
+      border-color: #ff4e6a;
+      color: #ff4e6a;
+    }
+
+    /* ── OVERLAY / MODAL BACKDROP ── */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .modal-backdrop.open { display: flex; }
+
+    .modal {
+      background: var(--bg-modal);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-modal);
+      animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.4rem 1.5rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .modal-close {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+      line-height: 1;
+    }
+
+    .modal-close:hover { border-color: var(--border-hover); color: var(--text-primary); }
+
+    .modal-body { padding: 1.25rem 1.5rem; }
+
+    /* ── FORM ── */
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.45rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.65rem 0.9rem;
+      font-family: var(--font);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color var(--transition), background var(--transition);
+      appearance: none;
+    }
+
+    .form-group textarea { resize: vertical; min-height: 80px; }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--text-muted); }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--border-hover);
+      background: rgba(181,255,60,0.03);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.9rem;
+    }
+
+    .form-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: border-color var(--transition);
+    }
+
+    .form-checkbox-row:hover { border-color: var(--border-hover); }
+
+    .form-checkbox-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .form-checkbox-row span {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .image-preview-box {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: 1.5px dashed var(--border);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: var(--bg-secondary);
+      margin-bottom: 0.9rem;
+      transition: border-color var(--transition);
+    }
+
+    .image-preview-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+      display: none;
+    }
+
+    .image-preview-placeholder {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      background: var(--accent);
+      color: var(--accent-text);
+      border: none;
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 0.8rem 1.5rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all var(--transition);
+      margin-top: 0.5rem;
+    }
+
+    .form-submit-btn:hover {
+      background: var(--accent-dim);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(181,255,60,0.25);
+    }
+
+    /* ── DETAIL MODAL ── */
+    .detail-modal {
+      max-width: 640px;
+    }
+
+    .detail-image {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      display: block;
+      margin-bottom: 1.25rem;
+      background: #111;
+    }
+
+    .detail-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .detail-designer-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+
+    .detail-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent) 0%, #3dffd0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #000;
+    }
+
+    .detail-price {
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    .detail-contact {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .detail-contact a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .detail-contact a:hover { text-decoration: underline; }
+
+    .detail-actions {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .detail-actions .btn-action { padding: 0.7rem 1.5rem; font-size: 0.88rem; }
+
+    /* ── TOAST ── */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 500;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .toast {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1.1rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      animation: slideInRight 0.3s ease;
+      max-width: 320px;
+    }
+
+    .toast-icon { color: var(--accent); font-size: 1.1rem; }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      background: var(--bg-secondary);
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      text-decoration: none;
+    }
+
+    .footer-logo-icon {
+      width: 30px;
+      height: 30px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: #000;
+    }
+
+    .footer-logo-text {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .footer-tagline {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      max-width: 420px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    .footer-credits {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .footer-credits strong { color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .header-inner { height: 60px; }
+      .logo-text { display: none; }
+      .search-wrap { max-width: none; }
+      #designs-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+      .form-row { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.7rem; }
+      .hero-stats { gap: 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      #designs-grid { grid-template-columns: 1fr; }
+      .section-header { flex-direction: column; align-items: flex-start; }
+      .detail-actions { flex-direction: column; }
+    }
+
+    /* ── UPLOAD PROGRESS ── */
+    .upload-progress {
+      width: 100%;
+      height: 4px;
+      background: var(--bg-secondary);
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .upload-progress-bar {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 99px;
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    /* ── COUNT BADGE ── */
+    .count-badge {
+      background: var(--accent-glow);
+      border: 1px solid rgba(181,255,60,0.2);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════ HEADER ══════════════════════ -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">FD</div>
+      <span class="logo-text">FootDesign <span>Hub</span></span>
+    </a>
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="Buscar diseños, creadores, equipos..." autocomplete="off" />
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-ghost" onclick="openModal('filter-modal')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        <span style="display:none;" id="filter-label-desktop">Filtros</span>
+      </button>
+      <button class="btn btn-accent" onclick="openModal('upload-modal')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Subir Diseño
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="hero">
+  <div class="hero-badge">
+    ⚽ Plataforma N°1 de Arte Digital Futbolístico
+  </div>
+  <h1>El mercado definitivo para el <span>arte digital</span> de fútbol</h1>
+  <p>Descubre, comparte y apoya a creadores independientes. Pósters, camisetas conceptuales, wallpapers y edits en un solo lugar.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <span class="stat-value" id="stat-designs">0</span>
+      <span class="stat-label">Diseños</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">120+</span>
+      <span class="stat-label">Creadores</span>
+    </div>
+    <div class="stat">
+      <span class="stat-value">48K+</span>
+      <span class="stat-label">Ventas</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ GALLERY ══════════════════════ -->
+<section class="gallery-section">
+  <div class="section-header">
+    <h2 class="section-title">
+      Últimos diseños
+      <span class="count-badge" id="designs-count">0</span>
+    </h2>
+    <div class="filter-tabs" id="filter-tabs">
+      <button class="filter-tab active" data-filter="all">Todos</button>
+      <button class="filter-tab" data-filter="poster">Pósters</button>
+      <button class="filter-tab" data-filter="wallpaper">Wallpapers</button>
+      <button class="filter-tab" data-filter="camiseta">Camisetas</button>
+
+    </div>
+  </div>
+  <div id="designs-grid"></div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">
+      <div class="footer-logo-icon">FD</div>
+      <span class="footer-logo-text">FootDesign Hub</span>
+    </a>
+    <p class="footer-tagline">La plataforma definitiva para diseñadores gráficos apasionados por el fútbol. Arte que mueve al mundo.</p>
+    <div class="footer-links">
+      <a href="#">Sobre nosotros</a>
+      <a href="#">Términos de uso</a>
+      <a href="#">Privacidad</a>
+      <a href="#">Subir diseño</a>
+      <a href="#">Contacto</a>
+    </div>
+    <p class="footer-credits">
+      © 2025 FootDesign Hub — Fundado y desarrollado con ❤️ por <strong>Tu Nombre</strong> · Todos los derechos reservados
+    </p>
+  </div>
+</footer>
+
+<!-- ══════════════════════ UPLOAD MODAL ══════════════════════ -->
+<div class="modal-backdrop" id="upload-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">⚡ Subir nuevo diseño</span>
+      <button class="modal-close" onclick="closeModal('upload-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="image-preview-box" id="preview-box">
+        <img id="preview-img" alt="Vista previa" />
+        <div class="image-preview-placeholder" id="preview-placeholder">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto 8px;display:block;opacity:0.4" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="9" cy="9" r="1.5"/></svg>
+          Ingresa una URL de imagen para ver la vista previa
+        </div>
+      </div>
+
+      <div class="upload-progress" id="upload-progress">
+        <div class="upload-progress-bar" id="upload-progress-bar"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Título del diseño *</label>
+        <input type="text" id="f-title" placeholder="Ej: Póster Campeones del Mundo 2026" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre del creador *</label>
+          <input type="text" id="f-creator" placeholder="Ej: ArtFutbol_99" />
+        </div>
+        <div class="form-group">
+          <label>Categoría *</label>
+          <select id="f-category">
+            <option value="">Seleccionar...</option>
+            <option value="poster">Póster</option>
+            <option value="wallpaper">Wallpaper</option>
+            <option value="camiseta">Camiseta Conceptual</option>
+
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>URL de la imagen *</label>
+        <input type="url" id="f-image" placeholder="https://images.unsplash.com/..." oninput="previewImage()" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Tags (separados por coma)</label>
+          <input type="text" id="f-tags" placeholder="Ej: Messi, Argentina, Copa" />
+        </div>
+        <div class="form-group">
+          <label>Precio (USD) *</label>
+          <input type="number" id="f-price" placeholder="0 = Gratis" min="0" step="0.01" value="0" />
+        </div>
+      </div>
+
+      <label class="form-checkbox-row" style="margin-bottom:1.1rem;">
+        <input type="checkbox" id="f-free" checked onchange="togglePrice()" />
+        <span>Marcar como diseño <strong>GRATIS</strong></span>
+      </label>
+
+      <div class="form-group">
+        <label>Link de contacto (Instagram / Twitter)</label>
+        <input type="text" id="f-contact" placeholder="https://instagram.com/tu_usuario" />
+      </div>
+
+      <div class="form-group">
+        <label>Descripción breve</label>
+        <textarea id="f-desc" placeholder="Cuenta algo sobre este diseño, el proceso creativo o la inspiración..."></textarea>
+      </div>
+
+      <button class="form-submit-btn" onclick="submitDesign()">⚡ Publicar diseño en la galería</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ DETAIL MODAL ══════════════════════ -->
+<div class="modal-backdrop" id="detail-modal">
+  <div class="modal detail-modal">
+    <div class="modal-header">
+      <span class="modal-title" id="detail-modal-title">Detalle del diseño</span>
+      <button class="modal-close" onclick="closeModal('detail-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <img class="detail-image" id="detail-img" src="" alt="" />
+      <div class="detail-meta">
+        <div class="detail-designer-row">
+          <div class="detail-avatar" id="detail-avatar"></div>
+          <div>
+            <div style="font-weight:600;color:var(--text-primary);font-size:0.9rem;" id="detail-creator"></div>
+            <div style="font-size:0.75rem;color:var(--text-muted);" id="detail-category"></div>
+          </div>
+        </div>
+        <div class="detail-price" id="detail-price"></div>
+      </div>
+      <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin-bottom:0.75rem;" id="detail-desc"></p>
+      <div style="background:rgba(255,185,0,0.07);border:1px solid rgba(255,185,0,0.2);border-radius:12px;padding:.75rem 1rem;font-size:.8rem;color:#ffb900;margin-top:.75rem;display:flex;align-items:center;gap:.5rem;">🔒 Para recibir el archivo compra y contacta al creador.</div>
+      <div class="detail-contact" id="detail-contact-wrap">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 2H3v16h5l3 3 3-3h7z"/></svg>
+        Contactar al creador:
+        <a href="#" id="detail-contact-link" target="_blank" rel="noopener"></a>
+      </div>
+      <div class="detail-actions" id="detail-actions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════ TOAST CONTAINER ══════════════════════ -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ══════════════════════ JAVASCRIPT ══════════════════════ -->
+<script>
+  /* ─── INITIAL DATA ─── */
+  const DEFAULT_DESIGNS = [
+  // CAMISETAS (13)
+  {id:'c01',title:'Camiseta Concepto Real Madrid 2026 · Oro y Blanco',creator:'DesignKingRM',category:'camiseta',image:'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=700&q=80',tags:['Real Madrid','Camiseta','Concept'],price:4.99,contact:'https://instagram.com/designkingRM',desc:'Camiseta titular conceptual del Real Madrid 2026-27. Diseño minimalista con detalles dorados. Archivo PNG 4K.',likes:218,liked:false},
+  {id:'c02',title:'Camiseta Concepto Barcelona · Rojo Oscuro Edición Especial',creator:'CulerDesign',category:'camiseta',image:'https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=700&q=80',tags:['Barcelona','Camiseta','Edición'],price:3.99,contact:'https://instagram.com/culerdesign',desc:'Propuesta atrevida para el Barça con rojo oscuro y detalles en oro. Formato SVG y PNG incluido.',likes:175,liked:false},
+  {id:'c03',title:'Camiseta Argentina 2026 · Copa América Edición',creator:'ArtFutbol_99',category:'camiseta',image:'https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=700&q=80',tags:['Argentina','Camiseta','Copa'],price:4.49,contact:'https://instagram.com/artfutbol99',desc:'Diseño conmemorativo de la Selección Argentina para la Copa América 2026. Alta resolución.',likes:312,liked:false},
+  {id:'c04',title:'Camiseta Concepto Manchester City · Azul Neón',creator:'CitizenKit',category:'camiseta',image:'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=700&q=80',tags:['Man City','Camiseta','Neon'],price:3.49,contact:'https://instagram.com/citizenkit',desc:'Camiseta conceptual con paleta azul eléctrico y detalles cyan. Ideal para imprimir o usar en diseños.',likes:143,liked:false},
+  {id:'c05',title:'Camiseta Concepto Brasil · Verde Amazonia',creator:'CanarinoDesigns',category:'camiseta',image:'https://images.unsplash.com/photo-1540747913346-19212a4b423a?w=700&q=80',tags:['Brasil','Camiseta','Verde'],price:3.99,contact:'https://twitter.com/canarinodesigns',desc:'Reinterpretación de la camiseta brasileña con tonos de la selva amazónica. Único y vibrante.',likes:289,liked:false},
+  {id:'c06',title:'Camiseta Concepto PSG · Negro Parisino Premium',creator:'ParisKitArt',category:'camiseta',image:'https://images.unsplash.com/photo-1551958219-acbc595d6e47?w=700&q=80',tags:['PSG','Camiseta','Paris'],price:4.99,contact:'https://instagram.com/pariskitart',desc:'Camiseta alternativa del PSG con estética parisina oscura y tipografía moderna. Pack completo.',likes:201,liked:false},
+  {id:'c07',title:'Camiseta Concepto Bayern Munich · Rojo Fuego',creator:'BavarianKit',category:'camiseta',image:'https://images.unsplash.com/photo-1627891953340-d7e58a4c4a8b?w=700&q=80',tags:['Bayern','Camiseta','Rojo'],price:3.49,contact:'https://instagram.com/bavariankit',desc:'Diseño para el Bayern Munich con degradado rojo llama. Archivo layered en PSD.',likes:167,liked:false},
+  {id:'c08',title:'Camiseta Concepto Juventus · Blanco y Negro 3D',creator:'JuveTurin_Art',category:'camiseta',image:'https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=700&q=80',tags:['Juventus','Camiseta','3D'],price:4.99,contact:'https://instagram.com/juveturinart',desc:'Camiseta con efecto tridimensional en la icónica franja bianconera de la Juventus.',likes:134,liked:false},
+  {id:'c09',title:'Camiseta Concepto Colombia · Amarillo Andino',creator:'Cafetero_Designs',category:'camiseta',image:'https://images.unsplash.com/photo-1624880357913-a8539238245b?w=700&q=80',tags:['Colombia','Camiseta','Amarillo'],price:3.99,contact:'https://instagram.com/cafeterodesigns',desc:'Propuesta para la tricolor colombiana con motivos andinos y paleta de la biodiversidad.',likes:256,liked:false},
+  {id:'c10',title:'Camiseta Concepto México · Azteca Edition',creator:'AztecaKitMX',category:'camiseta',image:'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=700&q=80',tags:['Mexico','Camiseta','Azteca'],price:4.49,contact:'https://instagram.com/aztecakitmx',desc:'Camiseta verde con patrones aztecas integrados en sublimación. Diseño para coleccionistas.',likes:198,liked:false},
+  {id:'c11',title:'Camiseta Concepto Portugal · Granate Royal',creator:'LusitanoDesign',category:'camiseta',image:'https://images.unsplash.com/photo-1607627000458-210e8d2bdb1d?w=700&q=80',tags:['Portugal','Camiseta','Ronaldo'],price:3.99,contact:'https://instagram.com/lusitanodesign',desc:'Camiseta alternativa para Portugal con granate oscuro y escudo rediseñado al estilo minimalista.',likes:223,liked:false},
+  {id:'c12',title:'Camiseta Concepto Liverpool · Crimson Anniversary',creator:'RedKopKits',category:'camiseta',image:'https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=700&q=80',tags:['Liverpool','Camiseta','Aniversario'],price:4.49,contact:'https://twitter.com/redkopkits',desc:'Edición aniversario de Liverpool con acabado metálico y escudo embosado. Alta calidad gráfica.',likes:187,liked:false},
+  {id:'c13',title:'Camiseta Concepto Chelsea · Azul Profundo Luxury',creator:'BluesKitCo',category:'camiseta',image:'https://images.unsplash.com/photo-1610201429162-2fc3fc57e7ea?w=700&q=80',tags:['Chelsea','Camiseta','Luxury'],price:3.49,contact:'https://instagram.com/blueskitco',desc:'Chelsea alternativa con azul profundo tipo lujo y detalle de láminas doradas. Diseño premium.',likes:142,liked:false},
+  // POSTERS (13)
+  {id:'p01',title:'Póster Campeones del Mundo · Argentina Qatar 2022',creator:'ArtFutbol_99',category:'poster',image:'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=700&q=80',tags:['Argentina','Qatar','Mundial'],price:3.99,contact:'https://instagram.com/artfutbol99',desc:'Póster conmemorativo del campeonato histórico de Argentina en Qatar 2022. Resolución 4K para impresión A2.',likes:342,liked:false},
+  {id:'p02',title:'Póster Retro · Pelé, Rey del Fútbol 1970',creator:'VintageKick',category:'poster',image:'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=700&q=80',tags:['Pele','Brasil','Retro'],price:4.99,contact:'https://instagram.com/vintagekick',desc:'Homenaje al GOAT del fútbol con estética de los años 70. Tipografía vintage y paleta sepia. Imprimible A1.',likes:431,liked:false},
+  {id:'p03',title:'Póster El Clásico · Real Madrid vs Barcelona',creator:'ClassicoArt',category:'poster',image:'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=700&q=80',tags:['El Clasico','Real Madrid','Barcelona'],price:5.49,contact:'https://instagram.com/classicoart',desc:'Diseño épico del clásico eterno entre blancos y azulgranas. Efecto dramático cinematográfico.',likes:389,liked:false},
+  {id:'p04',title:'Póster Messi · La Pulga Eterna GOAT',creator:'MessiArtwork',category:'poster',image:'https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=700&q=80',tags:['Messi','GOAT','Argentina'],price:4.99,contact:'https://instagram.com/messiartwork',desc:'Póster artístico en homenaje a Lionel Messi, el mejor jugador de la historia. Formato A2 imprimible.',likes:512,liked:false},
+  {id:'p05',title:'Póster Ronaldo · CR7 Legacy Edition',creator:'CR7_GraphicsLab',category:'poster',image:'https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=700&q=80',tags:['Ronaldo','CR7','Portugal'],price:4.49,contact:'https://twitter.com/cr7graphicslab',desc:'Póster de colección para Cristiano Ronaldo. Edición Legacy con foil dorado simulado.',likes:467,liked:false},
+  {id:'p06',title:'Póster Neymar · Brasil Magia y Jogo Bonito',creator:'JogoBonitoPoster',category:'poster',image:'https://images.unsplash.com/photo-1540747913346-19212a4b423a?w=700&q=80',tags:['Neymar','Brasil','Jogo'],price:3.99,contact:'https://instagram.com/jogobonitoposter',desc:'Celebración del arte futbolístico de Neymar con colores vibrantes de la bandera brasileña.',likes:298,liked:false},
+  {id:'p07',title:'Póster Champions League · Noche Mágica de Lisboa',creator:'UCLNights',category:'poster',image:'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=700&q=80',tags:['Champions','UEFA','Lisboa'],price:5.99,contact:'https://instagram.com/uclnights',desc:'Recreación artística de una noche histórica de Champions en Lisboa. Edición especial limitada.',likes:276,liked:false},
+  {id:'p08',title:'Póster Maradona · La Mano de Dios 1986',creator:'D10S_Tribute',category:'poster',image:'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=700&q=80',tags:['Maradona','Argentina','1986'],price:5.49,contact:'https://instagram.com/d10stribute',desc:'Tributo eterno a Diego Armando Maradona y la Copa del Mundo de México 1986. Obra de arte.',likes:543,liked:false},
+  {id:'p09',title:'Póster Copa América 2024 · El Nuevo Mundo Campeón',creator:'CopaArtDesign',category:'poster',image:'https://images.unsplash.com/photo-1624880357913-a8539238245b?w=700&q=80',tags:['Copa America','2024','Argentina'],price:3.99,contact:'https://instagram.com/copaartdesign',desc:'Diseño oficial fan-made de la Copa América 2024. Ideal para coleccionistas del fútbol sudamericano.',likes:234,liked:false},
+  {id:'p10',title:'Póster Haaland · Machine of Goals',creator:'GoalMachineArt',category:'poster',image:'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=700&q=80',tags:['Haaland','Man City','Goleador'],price:3.49,contact:'https://instagram.com/goalmachineart',desc:'Arte conceptual de Erling Haaland con paleta industrial y tipografía de máquina. Muy impactante.',likes:189,liked:false},
+  {id:'p11',title:'Póster Mbappe · El Rey de Paris',creator:'KM10_Arts',category:'poster',image:'https://images.unsplash.com/photo-1551958219-acbc595d6e47?w=700&q=80',tags:['Mbappe','PSG','Francia'],price:4.49,contact:'https://instagram.com/km10arts',desc:'Póster conceptual de Kylian Mbappé con la Torre Eiffel de fondo. Edición limitada digital.',likes:321,liked:false},
+  {id:'p12',title:'Póster Wembley · 100 Años de Historia',creator:'WembleyArtPrint',category:'poster',image:'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=700&q=80',tags:['Wembley','Historia','Inglaterra'],price:6.99,contact:'https://instagram.com/wembleyartprint',desc:'Impresionante póster arquitectónico del Estadio de Wembley. Detalle técnico excepcional.',likes:156,liked:false},
+  {id:'p13',title:'Póster Derby de Madrid · Atleti vs Real',creator:'MadridDerbyArt',category:'poster',image:'https://images.unsplash.com/photo-1627891953340-d7e58a4c4a8b?w=700&q=80',tags:['Derby','Atletico','Real Madrid'],price:4.99,contact:'https://instagram.com/madridderbyart',desc:'El derbi madrileño en un póster explosivo. Dos escudos, una ciudad, toda la pasión.',likes:267,liked:false},
+  // WALLPAPERS (12)
+  {id:'w01',title:'Wallpaper 4K · Santiago Bernabéu Vista Aérea',creator:'AerialSport4K',category:'wallpaper',image:'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=700&q=80',tags:['Bernabeu','Real Madrid','4K'],price:2.99,contact:'https://instagram.com/aerialsport4k',desc:'Vista aérea nocturna del Bernabéu reformado en resolución ultra 4K. Compatible con todo tipo de pantallas.',likes:445,liked:false},
+  {id:'w02',title:'Wallpaper 4K · Camp Nou Noche Mágica',creator:'GraphicStadium',category:'wallpaper',image:'https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=700&q=80',tags:['Camp Nou','Barcelona','Noche'],price:2.99,contact:'https://instagram.com/graphicstadium',desc:'El Camp Nou iluminado en una noche épica. Wallpaper ultrawide y 4K disponibles en el pack.',likes:507,liked:false},
+  {id:'w03',title:'Wallpaper Minimalista · Fondo Oscuro Balón Oro',creator:'MinimalKick',category:'wallpaper',image:'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=700&q=80',tags:['Minimalista','Fondo','Dark'],price:1.99,contact:'https://instagram.com/minimalkick',desc:'Fondo de pantalla ultra limpio con balón de oro. Versiones dark y light incluidas.',likes:334,liked:false},
+  {id:'w04',title:'Wallpaper Oscuro · Balón de Oro Glitch Effect',creator:'GlitchFootArt',category:'wallpaper',image:'https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=700&q=80',tags:['Balon de Oro','Glitch','Dark'],price:3.49,contact:'https://twitter.com/glitchfootart',desc:'Fondo artístico con efecto glitch sobre el Balón de Oro. Estética cyberpunk. Pack 4K.',likes:289,liked:false},
+  {id:'w05',title:'Wallpaper Atardecer · Maracaná desde el Cielo',creator:'StadiumViews',category:'wallpaper',image:'https://images.unsplash.com/photo-1607627000458-210e8d2bdb1d?w=700&q=80',tags:['Maracana','Brasil','Atardecer'],price:2.49,contact:'https://instagram.com/stadiumviews',desc:'El legendario Maracaná bañado por el atardecer carioca. Resolución 5K disponible en el pack.',likes:378,liked:false},
+  {id:'w06',title:'Wallpaper Abstracto · Pasión por el Fútbol',creator:'AbstractFoot',category:'wallpaper',image:'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=700&q=80',tags:['Abstracto','Arte','Fondo'],price:1.99,contact:'https://instagram.com/abstractfoot',desc:'Composición abstracta con pelota y colores del fútbol mundial. Único y artístico.',likes:212,liked:false},
+  {id:'w07',title:'Wallpaper Mosaico · Los 32 Escudos del Mundial',creator:'WorldCupGrid',category:'wallpaper',image:'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=700&q=80',tags:['Mundial','32 equipos','Mosaico'],price:3.99,contact:'https://instagram.com/worldcupgrid',desc:'Todos los escudos del Mundial organizados en un diseño de mosaico impresionante. Pack múltiples fondos.',likes:423,liked:false},
+  {id:'w08',title:'Wallpaper Lluvia · Estadio Vacío al Amanecer',creator:'EmptyStadiumArt',category:'wallpaper',image:'https://images.unsplash.com/photo-1610201429162-2fc3fc57e7ea?w=700&q=80',tags:['Estadio','Lluvia','Amanecer'],price:2.49,contact:'https://instagram.com/emptystadiumart',desc:'Fondo contemplativo de un estadio bajo la lluvia al amanecer. Atmósfera única y emotiva.',likes:267,liked:false},
+  {id:'w09',title:'Wallpaper Neon · Balón en la Red Efecto Luz',creator:'NeonGoalArt',category:'wallpaper',image:'https://images.unsplash.com/photo-1624880357913-a8539238245b?w=700&q=80',tags:['Neon','Gol','Red'],price:3.49,contact:'https://twitter.com/neongoalart',desc:'Impacto visual de un balón en la red con efecto neon y luz led. Ultra moderno. Pack 4K.',likes:198,liked:false},
+  {id:'w10',title:'Wallpaper Premium · Old Trafford Bajo la Nieve',creator:'RedDevilsWalls',category:'wallpaper',image:'https://images.unsplash.com/photo-1522778526097-ce0a22ceb253?w=700&q=80',tags:['Old Trafford','Manchester','Nieve'],price:2.99,contact:'https://instagram.com/reddevilswalls',desc:'Old Trafford nevado en una tarde de invierno. Uno de los wallpapers más solicitados del catálogo.',likes:356,liked:false},
+  {id:'w11',title:'Wallpaper Ultrawide · Estadios del Mundo Pack',creator:'StadiumGrid',category:'wallpaper',image:'https://images.unsplash.com/photo-1551958219-acbc595d6e47?w=700&q=80',tags:['Estadios','Mundial','Ultrawide'],price:4.49,contact:'https://instagram.com/stadiumgrid',desc:'Pack para pantallas duales con los estadios más icónicos del mundo. Resolución 8K disponible.',likes:234,liked:false},
+  {id:'w12',title:'Wallpaper Retro · Copa del Mundo 1978 Argentina',creator:'VintageKick',category:'wallpaper',image:'https://images.unsplash.com/photo-1609710228159-0fa9bd7c0827?w=700&q=80',tags:['Retro','1978','Argentina'],price:2.49,contact:'https://instagram.com/vintagekick',desc:'Paleta de colores retro de los años 70 inspirada en la Copa del Mundo de Argentina 1978.',likes:178,liked:false},
+  // LOGOS (14)
+  {id:'l01',title:'Logo Concepto · Real Madrid Minimalista 2026',creator:'LogoKingRM',category:'logo',image:'https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=700&q=80',tags:['Real Madrid','Logo','Minimalista'],price:6.99,contact:'https://instagram.com/logokingRM',desc:'Rediseño conceptual minimalista del escudo del Real Madrid. Vectores SVG editables y PNG transparente.',likes:389,liked:false},
+  {id:'l02',title:'Logo Concepto · FC Barcelona Flat Design',creator:'CulerDesign',category:'logo',image:'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=700&q=80',tags:['Barcelona','Logo','Flat'],price:5.99,contact:'https://instagram.com/culerdesign',desc:'Escudo del Barcelona reinterpretado en estilo flat design moderno. Ideal para branding fan.',likes:312,liked:false},
+  {id:'l03',title:'Logo Concepto · Manchester United Moderno',creator:'RedDevilLogo',category:'logo',image:'https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=700&q=80',tags:['Manchester United','Logo','Moderno'],price:5.99,contact:'https://instagram.com/reddevillogo',desc:'El diablo rojo reimaginado para la era digital. Vectores completos en formato AI y SVG.',likes:267,liked:false},
+  {id:'l04',title:'Logo Concepto · Liverpool FC Geométrico',creator:'AnfieldArts',category:'logo',image:'https://images.unsplash.com/photo-1577223625816-7546f13df25d?w=700&q=80',tags:['Liverpool','Logo','Geometrico'],price:6.49,contact:'https://instagram.com/anfieldarts',desc:'El legendario Bird of Kop rediseñado con geometría precisa. Pack completo con variantes color.',likes:234,liked:false},
+  {id:'l05',title:'Logo Concepto · Bayern Munich Bauhaus Edition',creator:'BavarianKit',category:'logo',image:'https://images.unsplash.com/photo-1627891953340-d7e58a4c4a8b?w=700&q=80',tags:['Bayern','Logo','Bauhaus'],price:6.99,contact:'https://instagram.com/bavariankit',desc:'El escudo del Bayern reinterpretado con la filosofía del diseño Bauhaus alemán. Poderoso.',likes:198,liked:false},
+  {id:'l06',title:'Logo Concepto · PSG Luxury Paris Edition',creator:'ParisKitArt',category:'logo',image:'https://images.unsplash.com/photo-1551958219-acbc595d6e47?w=700&q=80',tags:['PSG','Logo','Luxury'],price:7.49,contact:'https://instagram.com/pariskitart',desc:'El escudo del PSG con acabado luxury: láminas plateadas, tipografía serif y detalles de la Torre Eiffel.',likes:312,liked:false},
+  {id:'l07',title:'Logo Concepto · Boca Juniors Xeneize Modern',creator:'XeneizeDesign',category:'logo',image:'https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=700&q=80',tags:['Boca Juniors','Logo','Argentina'],price:5.49,contact:'https://instagram.com/xeneizedesign',desc:'Rediseño moderno del escudo más popular de Argentina. Vectores azul y amarillo en formato SVG.',likes:445,liked:false},
+  {id:'l08',title:'Logo Concepto · River Plate Millonario Digital',creator:'MillonarioArt',category:'logo',image:'https://images.unsplash.com/photo-1540747913346-19212a4b423a?w=700&q=80',tags:['River Plate','Logo','Argentina'],price:5.49,contact:'https://instagram.com/millonarioart',desc:'La banda roja icónica del River rediseñada con estética digital premium. Versiones múltiples.',likes:398,liked:false},
+  {id:'l09',title:'Logo Concepto · Juventus Minimal Black White',creator:'JuveTurin_Art',category:'logo',image:'https://images.unsplash.com/photo-1580674684081-7617fbf3d745?w=700&q=80',tags:['Juventus','Logo','Minimal'],price:5.99,contact:'https://instagram.com/juveturinart',desc:'La J bianconera llevada al extremo minimalista. Diseño ganador en concursos de branding.',likes:278,liked:false},
+  {id:'l10',title:'Logo Concepto · Atlético de Madrid Garra Roja',creator:'ColchoneroLogo',category:'logo',image:'https://images.unsplash.com/photo-1607627000458-210e8d2bdb1d?w=700&q=80',tags:['Atletico','Logo','Madrid'],price:5.99,contact:'https://instagram.com/colchonerologon',desc:'El oso y el madroño del Atleti con una paleta roja intensa. Diseño para fans auténticos.',likes:189,liked:false},
+  {id:'l11',title:'Logo Concepto · Selección Francia 3 Estrellas',creator:'LesBleusArt',category:'logo',image:'https://images.unsplash.com/photo-1624880357913-a8539238245b?w=700&q=80',tags:['Francia','Logo','Mundial'],price:6.49,contact:'https://instagram.com/lesbieusart',desc:'El gallo galo con 3 estrellas mundialistas. Diseño conmemorativo en vectores de alta calidad.',likes:223,liked:false},
+  {id:'l12',title:'Logo Concepto · Chelsea FC Premium Blue',creator:'BluesKitCo',category:'logo',image:'https://images.unsplash.com/photo-1610201429162-2fc3fc57e7ea?w=700&q=80',tags:['Chelsea','Logo','Premium'],price:5.99,contact:'https://instagram.com/blueskitco',desc:'El león del Chelsea con tratamiento premium. Azul real con detalles en oro. Pack SVG + AI.',likes:156,liked:false},
+  {id:'l13',title:'Logo Concepto · Fan Branding Kit Completo',creator:'FanBrandingLab',category:'logo',image:'https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=700&q=80',tags:['Branding','Logo','Club'],price:8.99,contact:'https://instagram.com/fanbrandinglab',desc:'Kit completo de branding para crear el logo de tu propio club de fútbol. 20 plantillas vectoriales.',likes:134,liked:false},
+  {id:'l14',title:'Logo Concepto · Inter Milan Nerazzurri Digital',creator:'InteristArt',category:'logo',image:'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=700&q=80',tags:['Inter','Logo','Milano'],price:6.49,contact:'https://instagram.com/interistart',desc:'La serpiente nerazzurra rediseñada para la era digital. Negros y azules con detalles metálicos.',likes:201,liked:false}
+];
+
+  /* ─── STATE ─── */
+  let designs = [];
+  let currentFilter = 'all';
+  let searchQuery = '';
+
+  /* ─── LOCALSTORAGE ─── */
+  function loadDesigns() {
+    try {
+      const stored = localStorage.getItem('footdesign_hub_v3');
+      if (stored) {
+        designs = JSON.parse(stored);
+      } else {
+        designs = [...DEFAULT_DESIGNS];
+        saveDesigns();
+      }
+    } catch {
+      designs = [...DEFAULT_DESIGNS];
+    }
+  }
+
+  function saveDesigns() {
+    localStorage.setItem('footdesign_hub_v3', JSON.stringify(designs));
+  }
+
+  /* ─── RENDER ─── */
+  function getInitials(name) {
+    return name.split(/[\s_]/).map(w => w[0]).join('').toUpperCase().slice(0,2);
+  }
+
+  function getCategoryLabel(cat) {
+    const map = { poster: 'Póster', wallpaper: 'Wallpaper', camiseta: 'Camiseta', edit: 'Edit' };
+    return map[cat] || cat;
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('designs-grid');
+    let filtered = designs;
+
+    if (currentFilter !== 'all') {
+      filtered = filtered.filter(d => d.category === currentFilter);
+    }
+
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      filtered = filtered.filter(d =>
+        d.title.toLowerCase().includes(q) ||
+        d.creator.toLowerCase().includes(q) ||
+        (d.tags || []).some(t => t.toLowerCase().includes(q)) ||
+        (d.desc || '').toLowerCase().includes(q)
+      );
+    }
+
+    document.getElementById('designs-count').textContent = filtered.length;
+    document.getElementById('stat-designs').textContent = designs.length + '+';
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `<div class="empty-state">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <p>No se encontraron diseños que coincidan con la búsqueda.</p>
+      </div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(d => {
+      const priceLabel = `$${parseFloat(d.price).toFixed(2)} USD`;
+      const initials = getInitials(d.creator);
+      const tagsHtml = (d.tags || []).slice(0,3).map(t => `<span class="tag">${t}</span>`).join('');
+
+      return `<div class="design-card" onclick="openDetail('${d.id}')">
+        <div class="card-image-wrap">
+          <img src="${d.image}" alt="${d.title}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=700&q=80'" />
+          <div class="card-overlay">
+            <button class="overlay-preview-btn" onclick="event.stopPropagation();openDetail('${d.id}')">Ver detalle →</button>
+          </div>
+          <span class="card-badge badge-paid">${priceLabel}</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">${d.title}</div>
+          <div class="card-designer">
+            <div class="designer-avatar">${initials}</div>
+            ${d.creator}
+          </div>
+          ${tagsHtml ? `<div class="card-tags">${tagsHtml}</div>` : ''}
+        </div>
+        <div class="card-footer">
+          <span class="price-tag price-paid">${priceLabel}</span>
+          <button class="btn-action btn-action-pay" onclick="event.stopPropagation();openDetail('${d.id}')">
+            🛒 Comprar
+          </button>
+          <button class="btn-like ${d.liked ? 'liked' : ''}" onclick="event.stopPropagation();toggleLike('${d.id}')" title="Me gusta" aria-label="Me gusta">
+            ${d.liked ? '♥' : '♡'}
+          </button>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  /* ─── ACTIONS ─── */
+  function handleAction(id) {
+    openDetail(id);
+  }
+
+  function toggleLike(id) {
+    const i = designs.findIndex(x => x.id === id);
+    if (i === -1) return;
+    designs[i].liked = !designs[i].liked;
+    designs[i].likes = (designs[i].likes || 0) + (designs[i].liked ? 1 : -1);
+    saveDesigns();
+    renderGrid();
+  }
+
+  /* ─── DETAIL MODAL ─── */
+  function openDetail(id) {
+    const d = designs.find(x => x.id === id);
+    if (!d) return;
+    const isFree = d.free || d.price === 0;
+
+    document.getElementById('detail-modal-title').textContent = d.title;
+    document.getElementById('detail-img').src = d.image;
+    document.getElementById('detail-img').alt = d.title;
+    document.getElementById('detail-creator').textContent = d.creator;
+    document.getElementById('detail-category').textContent = getCategoryLabel(d.category);
+    document.getElementById('detail-avatar').textContent = getInitials(d.creator);
+    document.getElementById('detail-price').textContent = `$${parseFloat(d.price).toFixed(2)} USD`;
+    document.getElementById('detail-price').className = 'detail-price price-paid';
+    document.getElementById('detail-desc').textContent = d.desc || 'Sin descripción.';
+
+    const contactWrap = document.getElementById('detail-contact-wrap');
+    const contactLink = document.getElementById('detail-contact-link');
+    if (d.contact) {
+      contactWrap.style.display = 'flex';
+      contactLink.href = d.contact;
+      contactLink.textContent = d.contact.replace(/https?:\/\/(www\.)?/, '');
+    } else {
+      contactWrap.style.display = 'none';
+    }
+
+    document.getElementById('detail-actions').innerHTML = `
+      ${d.contact ? `<a href="${d.contact}" target="_blank" rel="noopener" class="btn btn-accent" style="flex:1;justify-content:center;padding:.7rem 1.5rem;font-size:.88rem">🛒 Comprar · Contactar creador</a>` : '<span style="color:var(--text-muted);font-size:.85rem">Sin link de contacto.</span>'}
+      <button class="btn btn-ghost" onclick="toggleLike('${d.id}');closeModal('detail-modal')">${d.liked?'♥ Guardado':'♡ Guardar'}</button>
+    `;
+
+    openModal('detail-modal');
+  }
+
+  /* ─── UPLOAD FORM ─── */
+  function previewImage() {
+    const url = document.getElementById('f-image').value.trim();
+    const img = document.getElementById('preview-img');
+    const placeholder = document.getElementById('preview-placeholder');
+    if (url) {
+      img.src = url;
+      img.style.display = 'block';
+      placeholder.style.display = 'none';
+      img.onerror = () => {
+        img.style.display = 'none';
+        placeholder.style.display = 'flex';
+      };
+    } else {
+      img.style.display = 'none';
+      placeholder.style.display = 'flex';
+    }
+  }
+
+  function togglePrice() {
+    const isFree = document.getElementById('f-free').checked;
+    const priceInput = document.getElementById('f-price');
+    priceInput.disabled = isFree;
+    if (isFree) priceInput.value = '0';
+    priceInput.style.opacity = isFree ? '0.4' : '1';
+  }
+
+  function submitDesign() {
+    const title = document.getElementById('f-title').value.trim();
+    const creator = document.getElementById('f-creator').value.trim();
+    const category = document.getElementById('f-category').value;
+    const image = document.getElementById('f-image').value.trim();
+    const isFree = document.getElementById('f-free').checked;
+    const price = parseFloat(document.getElementById('f-price').value) || 0;
+    const contact = document.getElementById('f-contact').value.trim();
+    const desc = document.getElementById('f-desc').value.trim();
+    const tagsRaw = document.getElementById('f-tags').value.trim();
+    const tags = tagsRaw ? tagsRaw.split(',').map(t => t.trim()).filter(Boolean) : [];
+
+    if (!title || !creator || !category || !image) {
+      showToast('⚠️ Completa los campos obligatorios (*)', true);
+      return;
+    }
+
+    const progress = document.getElementById('upload-progress');
+    const bar = document.getElementById('upload-progress-bar');
+    progress.style.display = 'block';
+    bar.style.width = '0%';
+
+    let pct = 0;
+    const interval = setInterval(() => {
+      pct += Math.random() * 25;
+      bar.style.width = Math.min(pct, 95) + '%';
+      if (pct >= 95) clearInterval(interval);
+    }, 100);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      bar.style.width = '100%';
+
+      const newDesign = {
+        id: 'user-' + Date.now(),
+        title, creator, category, image,
+        tags, price: isFree ? 0 : price,
+        free: isFree,
+        contact, desc,
+        likes: 0,
+        liked: false
+      };
+
+      designs.unshift(newDesign);
+      saveDesigns();
+      renderGrid();
+
+      closeModal('upload-modal');
+      showToast(`🎉 ¡"${title}" publicado en la galería!`);
+      resetForm();
+
+      setTimeout(() => {
+        progress.style.display = 'none';
+        bar.style.width = '0%';
+      }, 500);
+    }, 900);
+  }
+
+  function resetForm() {
+    ['f-title','f-creator','f-image','f-contact','f-desc','f-tags'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('f-category').value = '';
+    document.getElementById('f-price').value = '0';
+    document.getElementById('f-free').checked = true;
+    document.getElementById('f-price').disabled = true;
+    document.getElementById('f-price').style.opacity = '0.4';
+    document.getElementById('preview-img').style.display = 'none';
+    document.getElementById('preview-placeholder').style.display = 'flex';
+  }
+
+  /* ─── MODAL SYSTEM ─── */
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-backdrop')) {
+      closeModal(e.target.id);
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      ['upload-modal','detail-modal','filter-modal'].forEach(id => closeModal(id));
+    }
+  });
+
+  /* ─── SEARCH ─── */
+  document.getElementById('search-input').addEventListener('input', (e) => {
+    searchQuery = e.target.value;
+    renderGrid();
+  });
+
+  /* ─── FILTER TABS ─── */
+  document.getElementById('filter-tabs').addEventListener('click', (e) => {
+    const tab = e.target.closest('.filter-tab');
+    if (!tab) return;
+    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentFilter = tab.dataset.filter;
+    renderGrid();
+  });
+
+  /* ─── TOAST ─── */
+  function showToast(msg, isError = false) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    if (isError) toast.style.borderColor = 'rgba(255,78,106,0.4)';
+    toast.innerHTML = `<span class="toast-icon">${isError ? '⚠️' : '✅'}</span> ${msg}`;
+    container.appendChild(toast);
+    setTimeout(() => {
+      toast.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateX(20px)';
+      setTimeout(() => toast.remove(), 300);
+    }, 3500);
+  }
+
+  /* ─── INIT ─── */
+  loadDesigns();
+  renderGrid();
+  togglePrice();
+
+  /* ─── SHOW FILTER LABEL ON LARGE SCREENS ─── */
+  if (window.innerWidth > 768) {
+    document.getElementById('filter-label-desktop').style.display = 'inline';
+  }
+</script>
+</body>
+</html>
